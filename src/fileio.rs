@@ -39,7 +39,7 @@ pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), 
                 }
             },
             Err(e) => {
-                println!("SEND: {}", e);
+                println!("POPULATE DIR: {}", e);
                 process::exit(1);
             }
         });
@@ -84,7 +84,7 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
                 }
             },
             Err(e) => {
-                println!("SEND: {}", e);
+                println!("GENERATE TXT: {}", e);
                 process::exit(1);
             }
         });
