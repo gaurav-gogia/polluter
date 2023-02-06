@@ -9,7 +9,7 @@ use super::constant;
 use super::util;
 
 pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), Box<dyn Error>> {
-    if depth == 0 {
+    if limit == 0 || depth == 0 {
         return Ok(());
     }
 
