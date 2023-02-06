@@ -21,7 +21,7 @@ pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), 
         if active > max {
             match rx.recv() {
                 Ok(()) => active -= 1,
-                Err(e) => println!("RECV: {}", e.to_string()),
+                Err(e) => return Err(Box::new(e)),
             }
         }
 
@@ -50,7 +50,7 @@ pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), 
     while active > 0 {
         match rx.recv() {
             Ok(()) => active -= 1,
-            Err(e) => println!("RECV: {}", e.to_string()),
+            Err(e) => return Err(Box::new(e)),
         }
     }
 
@@ -67,7 +67,7 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
         if active > max {
             match rx.recv() {
                 Ok(()) => active -= 1,
-                Err(e) => println!("RECV: {}", e.to_string()),
+                Err(e) => return Err(Box::new(e)),
             }
         }
 
@@ -93,7 +93,7 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
     while active > 0 {
         match rx.recv() {
             Ok(()) => active -= 1,
-            Err(e) => println!("RECV: {}", e.to_string()),
+            Err(e) => return Err(Box::new(e)),
         }
     }
 
