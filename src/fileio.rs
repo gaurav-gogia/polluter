@@ -31,7 +31,13 @@ pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), 
 
         active += 1;
         thread::spawn(move || match populate_dir(dirpath, limit) {
-            Ok(_) => txi.send(()).unwrap(),
+            Ok(_) => match txi.send(()) {
+                Ok(()) => (),
+                Err(e) => {
+                    println!("SEND: {}", e);
+                    process::exit(1);
+                }
+            },
             Err(e) => {
                 println!("SEND: {}", e);
                 process::exit(1);
@@ -70,7 +76,13 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
 
         active += 1;
         thread::spawn(move || match generate_txt_file(fdir_copy) {
-            Ok(_) => txi.send(()).unwrap(),
+            Ok(_) => match txi.send(()) {
+                Ok(()) => (),
+                Err(e) => {
+                    println!("SEND: {}", e);
+                    process::exit(1);
+                }
+            },
             Err(e) => {
                 println!("SEND: {}", e);
                 process::exit(1);
