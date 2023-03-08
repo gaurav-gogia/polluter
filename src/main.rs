@@ -39,7 +39,7 @@ fn get_inputs() -> Result<(PathBuf, u32, u32), Box<dyn Error>> {
         return Ok((cwd, lidep, lidep));
     }
 
-    let fpathstr = args[1].clone();
+    let fpathstr = &args[1];
     let fpath = PathBuf::from(fpathstr);
     let mut abs_path = fs::canonicalize(fpath)?;
 

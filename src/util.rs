@@ -12,7 +12,7 @@ pub fn get_random_string(length: u32) -> String {
         .collect();
 }
 
-pub fn generate_file_path(fdir: PathBuf, extension: &str) -> PathBuf {
+pub fn generate_file_path(fdir: &PathBuf, extension: &str) -> PathBuf {
     let rand_name = format!(
         "{}{}",
         get_random_string(constant::FILE_NAME_LEN),

@@ -25,7 +25,7 @@ pub fn generate_files(root_path: PathBuf, limit: u32, depth: u32) -> Result<(), 
             }
         }
 
-        let dirpath = util::generate_file_path(root_path.clone(), constant::FOLDER);
+        let dirpath = util::generate_file_path(&root_path, constant::FOLDER);
         let dirpath_copy = dirpath.clone();
         let txi = tx.clone();
 
@@ -62,7 +62,7 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
     let mut active: u32 = 0;
     let (tx, rx) = mpsc::channel();
 
-    fs::create_dir_all(fdir.clone())?;
+    fs::create_dir_all(&fdir)?;
     for _ in 0..limit {
         if active > max {
             match rx.recv() {
@@ -101,7 +101,7 @@ fn populate_dir(fdir: PathBuf, limit: u32) -> Result<(), Box<dyn Error>> {
 }
 
 fn generate_txt_file(fdir: PathBuf) -> Result<(), Box<dyn Error>> {
-    let fpath = util::generate_file_path(fdir, constant::TXT_EXTENSION);
+    let fpath = util::generate_file_path(&fdir, constant::TXT_EXTENSION);
     let mut txt_file_handle = File::create(fpath)?;
 
     let datastr = util::get_random_string(constant::CONTENT_LEN);
